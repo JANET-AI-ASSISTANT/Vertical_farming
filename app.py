@@ -342,7 +342,7 @@ $$
 - **Light (Michaelis–Menten):**
 st.markdown(r"""
 $f_{light} = \frac{PPFD}{PPFD + K_s}$
-""")
+""") 
 
 - **CO₂ response (exponential saturation):**
 $$
