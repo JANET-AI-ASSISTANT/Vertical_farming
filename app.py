@@ -17,6 +17,7 @@ Run with:
 import streamlit as st
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Import core simulator functions (assumes they are in simulator.py)
 from simulator import (
@@ -333,25 +334,25 @@ The system models plant growth using a **multiplicative limitation law**:
 ### 📌 Core equation
 Growth Factor (GF):
 
-\[
+$$
 GF = f_{light} \times f_{CO2} \times f_{temp} \times f_{EC} \times f_{VPD}
-\]
+$$
 
 ### 📘 What each term means
 - **Light (Michaelis–Menten):**
-\[
+$$
 f_{light} = \frac{PPFD}{PPFD + K_s}
-\]
+$$
 
 - **CO₂ response (exponential saturation):**
-\[
+$$
 f_{CO2} = 0.35 + 0.65(1 - e^{-CO2/1100})
-\]
+$$
 
 - **Temperature / EC / VPD (Gaussian response curves):**
-\[
+$$
 f(x) = e^{-\left(\frac{x - x_{opt}}{range}\right)^2}
-\]
+$$
 
 ### 🌿 Meaning
 Each factor represents a **biological constraint**.  
@@ -363,9 +364,9 @@ Final growth is limited by the weakest combined conditions.
 
 ### 📌 Formula (Tetens equation)
 
-\[
+$$
 VPD = e_s - e_a
-\]
+$$
 
 Where:
 - \( e_s = 0.6108 \cdot e^{(17.27T)/(T+237.3)} \)
@@ -379,9 +380,9 @@ Where:
 
 ## 💧 3. Water Demand Model
 
-\[
+$$
 ET \propto VPD \times PPFD \times K_c
-\]
+$$
 
 ### Meaning:
 - More light → more photosynthesis → more water use
@@ -395,9 +396,9 @@ ET \propto VPD \times PPFD \times K_c
 Energy simulation uses:
 
 - Solar generation:
-\[
+$$
 P_{solar} = Area \times Efficiency \times Irradiance
-\]
+$$
 
 - Consumption:
   - LEDs (dominant load)
@@ -416,21 +417,21 @@ Simulates a **real 24h × 365 energy system (8760 hours)**.
 
 ### Profit equation:
 
-\[
+$$
 Profit = Revenue - (Energy + Water + Labor + CAPEX)
-\]
+$$
 
 ### Revenue:
 
-\[
+$$
 Revenue = Yield \times Price
-\]
+$$
 
 ### Yield:
 
-\[
+$$
 Yield_{VF} = BaseYield \times GF \times Layers
-\]
+$$
 
 ---
 
@@ -438,9 +439,9 @@ Yield_{VF} = BaseYield \times GF \times Layers
 
 Goal:
 
-\[
+$$
 maximize \; Fitness(Temp, Humidity, PPFD, CO2, EC)
-\]
+$$
 
 Steps:
 1. Random population
@@ -479,9 +480,9 @@ Shows **financial uncertainty, not just averages**
   - no seasons
 
 - Outdoor:
-\[
+$$
 Yield_{month} = Base \times SeasonalFactor
-\]
+$$
 
 ### Meaning:
 Shows **stability advantage of vertical farming**
