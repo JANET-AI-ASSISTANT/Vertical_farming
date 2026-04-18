@@ -17,7 +17,6 @@ Run with:
 import streamlit as st
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 # Import core simulator functions (assumes they are in simulator.py)
 from simulator import (
