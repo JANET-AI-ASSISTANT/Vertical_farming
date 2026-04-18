@@ -340,7 +340,9 @@ $$
 
 ### 📘 What each term means
 - **Light (Michaelis–Menten):**
-st.latex(r"f_{light} = \frac{PPFD}{PPFD + K_s}")
+st.markdown(r"""
+$f_{light} = \frac{PPFD}{PPFD + K_s}$
+""")
 
 - **CO₂ response (exponential saturation):**
 $$
@@ -348,7 +350,9 @@ f_{CO2} = 0.35 + 0.65(1 - e^{-CO2/1100})
 $$
 
 - **Temperature / EC / VPD (Gaussian response curves):**
-st.latex(r"f(x) = e^{-\left(\frac{x - x_{opt}}{range}\right)^2}")
+st.markdown(r"""
+$f(x) = e^{-\left(\frac{x - x_{opt}}{range}\right)^2}$
+""")
 
 ### 🌿 Meaning
 Each factor represents a **biological constraint**.  
