@@ -204,14 +204,17 @@ with tab4:
 
     st.line_chart(hist)
 
-    st.write("Best parameters:")
-    st.json({
-        "Temperature": float(best[0]),
-        "Humidity": float(best[1]),
-        "PPFD": float(best[2]),
-        "CO2": float(best[3]),
-        "EC": float(best[4])
-    })
+    st.write("### Optimized Parameters")
+    
+    output_text = f"""
+    🌡️ Temperature : {best[0]:.2f} °C
+    💧 Humidity    : {best[1]:.2f} %
+    ☀️ PPFD        : {best[2]:.2f} μmol/m²/s
+    ☁️ CO2         : {best[3]:.2f} ppm
+    ⚡ EC          : {best[4]:.2f} mS/cm
+    """
+    
+    st.code(output_text, language=None)
 
     st.markdown("---")
     with st.expander("🧠 Optimization — Explanation"):
