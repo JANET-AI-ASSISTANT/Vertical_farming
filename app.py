@@ -326,176 +326,134 @@ with tab6:
 with tab7:
     st.subheader("ℹ️ Full System Explanation (Physics, Math & Models)")
 
-    st.markdown("""
-## 🌱 1. Growth Physics Model
+    # ── Section 1 ──────────────────────────────────────────────────────────────
+    st.markdown("## 🌱 1. Growth Physics Model")
+    st.markdown(
+        "The system models plant growth using a **multiplicative limitation law**:"
+    )
 
-The system models plant growth using a **multiplicative limitation law**:
+    st.markdown("### 📌 Core equation")
+    st.markdown("Growth Factor (GF):")
+    st.latex(r"GF = f_{\text{light}} \times f_{\text{CO}_2} \times f_{\text{temp}} \times f_{\text{EC}} \times f_{\text{VPD}}")
 
-### 📌 Core equation
-Growth Factor (GF):
+    st.markdown("### 📘 What each term means")
+    st.markdown("**Light (Michaelis–Menten):**")
+    st.latex(r"f_{\text{light}} = \frac{PPFD}{PPFD + K_s}")
 
-$$
-GF = f_{light} \times f_{CO2} \times f_{temp} \times f_{EC} \times f_{VPD}
-$$
+    st.markdown("**CO₂ response (exponential saturation):**")
+    st.latex(r"f_{\text{CO}_2} = 0.35 + 0.65\left(1 - e^{-CO_2/1100}\right)")
 
-### 📘 What each term means
-- **Light (Michaelis–Menten):**
-$f_{light} = \frac{PPFD}{PPFD + K_s}$
+    st.markdown("**Temperature / EC / VPD (Gaussian response curves):**")
+    st.latex(r"f(x) = e^{-\left(\frac{x - x_{\text{opt}}}{range}\right)^2}")
 
+    st.markdown("### 🌿 Meaning")
+    st.markdown(
+        "Each factor represents a **biological constraint**.  \n"
+        "Final growth is limited by the weakest combined conditions."
+    )
 
-- **CO₂ response (exponential saturation):**
-$$
-f_{CO2} = 0.35 + 0.65(1 - e^{-CO2/1100})
-$$
+    st.markdown("---")
 
-- **Temperature / EC / VPD (Gaussian response curves):**
-$f(x) = e^{-\left(\frac{x - x_{opt}}{range}\right)^2}$
+    # ── Section 2 ──────────────────────────────────────────────────────────────
+    st.markdown("## 💧 2. VPD (Vapour Pressure Deficit)")
+    st.markdown("### 📌 Formula (Tetens equation)")
+    st.latex(r"VPD = e_s - e_a")
+    st.markdown("Where:")
+    st.latex(r"e_s = 0.6108 \cdot e^{\frac{17.27 \, T}{T + 237.3}}")
+    st.latex(r"e_a = e_s \cdot RH")
 
-### 🌿 Meaning
-Each factor represents a **biological constraint**.  
-Final growth is limited by the weakest combined conditions.
+    st.markdown("### 🌿 Meaning")
+    st.markdown(
+        "- High VPD → plants lose water faster (stress)  \n"
+        "- Low VPD → slow transpiration"
+    )
 
----
+    st.markdown("---")
 
-## 💧 2. VPD (Vapour Pressure Deficit)
+    # ── Section 3 ──────────────────────────────────────────────────────────────
+    st.markdown("## 💧 3. Water Demand Model")
+    st.latex(r"ET \propto VPD \times PPFD \times K_c")
+    st.markdown(
+        "**Meaning:**\n"
+        "- More light → more photosynthesis → more water use  \n"
+        "- Higher VPD → more transpiration  \n"
+        "- Kc = crop sensitivity factor"
+    )
 
-### 📌 Formula (Tetens equation)
+    st.markdown("---")
 
-$$
-VPD = e_s - e_a
-$$
+    # ── Section 4 ──────────────────────────────────────────────────────────────
+    st.markdown("## ⚡ 4. Energy Model")
+    st.markdown("Solar generation:")
+    st.latex(r"P_{\text{solar}} = Area \times Efficiency \times Irradiance")
 
-Where:
-- \( e_s = 0.6108 \cdot e^{(17.27T)/(T+237.3)} \)
-- \( e_a = e_s \cdot RH \)
+    st.markdown(
+        "**Consumption:**\n"
+        "- LEDs (dominant load)  \n"
+        "- HVAC (climate control)\n\n"
+        "**Battery:** 92% charge/discharge efficiency, C-rate limiting (max charge speed)\n\n"
+        "**Meaning:** Simulates a real 24h × 365 energy system (8 760 hours)."
+    )
 
-### 🌿 Meaning
-- High VPD → plants lose water faster (stress)
-- Low VPD → slow transpiration
+    st.markdown("---")
 
----
+    # ── Section 5 ──────────────────────────────────────────────────────────────
+    st.markdown("## 💰 5. Economics Model")
+    st.markdown("**Profit equation:**")
+    st.latex(r"Profit = Revenue - (Energy + Water + Labor + CAPEX)")
+    st.markdown("**Revenue:**")
+    st.latex(r"Revenue = Yield \times Price")
+    st.markdown("**Yield:**")
+    st.latex(r"Yield_{\text{VF}} = BaseYield \times GF \times Layers")
 
-## 💧 3. Water Demand Model
+    st.markdown("---")
 
-$$
-ET \propto VPD \times PPFD \times K_c
-$$
+    # ── Section 6 ──────────────────────────────────────────────────────────────
+    st.markdown("## 🧠 6. Genetic Algorithm Optimization")
+    st.markdown("**Goal:**")
+    st.latex(r"\text{maximize} \;\; Fitness(Temp,\; Humidity,\; PPFD,\; CO_2,\; EC)")
 
-### Meaning:
-- More light → more photosynthesis → more water use
-- Higher VPD → more transpiration
-- Kc = crop sensitivity factor
+    st.markdown(
+        "**Steps:**\n"
+        "1. Random population  \n"
+        "2. Evaluate growth model  \n"
+        "3. Select best performers  \n"
+        "4. Mutate + crossover  \n"
+        "5. Repeat for generations\n\n"
+        "**Meaning:** Finds **best indoor farming environment automatically**."
+    )
 
----
+    st.markdown("---")
 
-## ⚡ 4. Energy Model
+    # ── Section 7 ──────────────────────────────────────────────────────────────
+    st.markdown("## 📉 7. Monte Carlo Simulation")
+    st.markdown(
+        "Random variation applied to: yield, electricity price, crop price, traditional yield.\n\n"
+        "**Output:** Profit distribution · Risk range (P10–P90) · Yield advantage %\n\n"
+        "**Meaning:** Shows **financial uncertainty, not just averages**."
+    )
 
-Energy simulation uses:
+    st.markdown("---")
 
-- Solar generation:
-$$
-P_{solar} = Area \times Efficiency \times Irradiance
-$$
+    # ── Section 8 ──────────────────────────────────────────────────────────────
+    st.markdown("## 🌍 8. Indoor vs Outdoor Model")
+    st.markdown("Indoor: constant year-round production, no seasons.\n\nOutdoor:")
+    st.latex(r"Yield_{\text{month}} = Base \times SeasonalFactor")
+    st.markdown("**Meaning:** Shows **stability advantage of vertical farming**.")
 
-- Consumption:
-  - LEDs (dominant load)
-  - HVAC (climate control)
+    st.markdown("---")
 
-- Battery:
-  - 92% charge/discharge efficiency
-  - C-rate limiting (max charge speed)
-
-### Meaning:
-Simulates a **real 24h × 365 energy system (8760 hours)**.
-
----
-
-## 💰 5. Economics Model
-
-### Profit equation:
-
-$$
-Profit = Revenue - (Energy + Water + Labor + CAPEX)
-$$
-
-### Revenue:
-
-$$
-Revenue = Yield \times Price
-$$
-
-### Yield:
-
-$$
-Yield_{VF} = BaseYield \times GF \times Layers
-$$
-
----
-
-## 🧠 6. Genetic Algorithm Optimization
-
-Goal:
-
-$$
-maximize \; Fitness(Temp, Humidity, PPFD, CO2, EC)
-$$
-
-Steps:
-1. Random population
-2. Evaluate growth model
-3. Select best performers
-4. Mutate + crossover
-5. Repeat for generations
-
-### Meaning:
-Finds **best indoor farming environment automatically**
-
----
-
-## 📉 7. Monte Carlo Simulation
-
-Random variation applied to:
-- yield
-- electricity price
-- crop price
-- traditional yield
-
-### Output:
-- Profit distribution
-- Risk range (P10–P90)
-- Yield advantage %
-
-### Meaning:
-Shows **financial uncertainty, not just averages**
-
----
-
-## 🌍 8. Indoor vs Outdoor Model
-
-- Indoor:
-  - constant year-round production
-  - no seasons
-
-- Outdoor:
-$$
-Yield_{month} = Base \times SeasonalFactor
-$$
-
-### Meaning:
-Shows **stability advantage of vertical farming**
-
----
-
-## 📊 9. What Each Graph Means
-
-- **Yield charts** → production efficiency
-- **VPD curve** → plant stress sensitivity
-- **Energy charts** → system self-sufficiency
-- **Water demand** → resource scaling laws
-- **Economics charts** → profitability breakdown
-- **Monte Carlo** → risk & uncertainty
-- **Tornado chart** → parameter sensitivity ranking
-""")
+    # ── Section 9 ──────────────────────────────────────────────────────────────
+    st.markdown("## 📊 9. What Each Graph Means")
+    st.markdown(
+        "- **Yield charts** → production efficiency  \n"
+        "- **VPD curve** → plant stress sensitivity  \n"
+        "- **Energy charts** → system self-sufficiency  \n"
+        "- **Water demand** → resource scaling laws  \n"
+        "- **Economics charts** → profitability breakdown  \n"
+        "- **Monte Carlo** → risk & uncertainty  \n"
+        "- **Tornado chart** → parameter sensitivity ranking"
+    )
 
 # ===================== FOOTER =====================
 st.markdown("---")
